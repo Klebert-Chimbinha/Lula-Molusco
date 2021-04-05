@@ -1,0 +1,26 @@
+//Deixa a fita de Led Respirar atraves da medição de Millis
+#include <FastLED.h>
+
+#define NUM_LEDS 16
+#define LED_PIN 5
+#define LED_TYPE    WS2812
+unsigned long int respiro = 0;
+
+CRGB leds[NUM_LEDS];
+void setup () {
+  FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(250);
+  }
+void loop() { 
+uint8_t sinBeat = beatsin8(30, 0, NUM_LEDS -1, 0, 0);
+uint8_t sinBeat2 = beatsin8(30, 0, NUM_LEDS -1, 0, 85);
+
+
+leds[sinBeat] = CRGB::Red;
+leds[sinBeat2] = CRGB::Purple;
+
+fadeToBlackBy(leds, NUM_LEDS, 10);
+
+
+FastLED.show();
+}
