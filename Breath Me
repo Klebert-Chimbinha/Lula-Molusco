@@ -1,13 +1,24 @@
 //Deixa a fita de Led Respirar atraves da medição de Millis
 #include <FastLED.h>
-#define NUM_LEDS 60
-#define DATA_PIN 6
+
+#define NUM_LEDS 16
+#define LED_PIN 5
+#define LED_TYPE    WS2812
+int respiro = 0;
+
 CRGB leds[NUM_LEDS];
 void setup () {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+  FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(250);
   }
 void loop() { 
-        leds[0] = CRGB::Red; 
-        FastLED.show(); 
-        delay(30); 
-    }
+for(int i=0; i <= NUM_LEDS; i++){
+  if(millis() - respiro >= 1000){
+  leds[i] = CRGB::Red;
+  FastLED.show();
+  respiro = millis();
+  }
+  leds[i] = CRGB::Black;
+  FastLED.show();
+  }
+  }
