@@ -5,35 +5,44 @@
 #define LED_PIN 5
 #define LED_TYPE    WS2812
 unsigned long int respira = 0;
-unsigned long int expira = 50;
+unsigned long int inspira = 100;
+unsigned long int expira = 100;
 int r = 0;
 int e = 16;
+int f = 0; // força
 
 CRGB leds[NUM_LEDS];
 void setup () {
   FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(250);
   }
+
 void loop() { 
-  if(r < NUM_LEDS){
-    if(millis() - respira >= 100){
+  if(r < f and f <= NUM_LEDS){
+    if(millis() - respira >= inspira){
       leds[r] = CRGB::Purple;
+     // leds[r-1] = CRGB::Black;
       FastLED.show();
-      respira += 100;
+      respira += inspira;
       r += 1;
       }
     }
-    if(r == NUM_LEDS){
+    if(r == f){
       if(millis() - respira >= expira){
+     //   leds[e-1] = CRGB::Purple;
         leds[e] = CRGB::Black;
         FastLED.show();
         respira += expira;
         e -= 1;
         }
       }
-      if(r == NUM_LEDS and e == 0){
+      if(r == f and e == 0){
         r = 0;
         e = 16;
+        f += 1;
+      }
+      if(f == NUM_LEDS){
+        f = 1;
       }
   }
 
