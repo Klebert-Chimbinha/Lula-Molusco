@@ -4,7 +4,10 @@
 #define NUM_LEDS 16
 #define LED_PIN 5
 #define LED_TYPE    WS2812
-int respiro = 0;
+unsigned long int respira = 0;
+unsigned long int expira = 0;
+int r = 0;
+int e = 0;
 
 CRGB leds[NUM_LEDS];
 void setup () {
@@ -12,13 +15,26 @@ void setup () {
   FastLED.setBrightness(250);
   }
 void loop() { 
-for(int i=0; i <= NUM_LEDS; i++){
-  if(millis() - respiro >= 1000){
-  leds[i] = CRGB::Red;
-  FastLED.show();
-  respiro = millis();
+  if(r < NUM_LEDS){
+    if(millis() - respira >= 100){
+      leds[r] = CRGB::Purple;
+      FastLED.show();
+      respira += 100;
+      r += 1;
+      }
+    }
+    if(r == NUM_LEDS){
+      if(millis() - respira >= 100){
+        leds[e] = CRGB::Red;
+        FastLED.show();
+        respira += 100;
+        e += 1;
+        }
+      }
+      if(r == NUM_LEDS and e == NUM_LEDS){
+        r = 0;
+        e = 0;
+      }
   }
-  leds[i] = CRGB::Black;
-  FastLED.show();
-  }
-  }
+
+
