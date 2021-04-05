@@ -1,13 +1,13 @@
 //Deixa a fita de Led Respirar atraves da medição de Millis
 #include <FastLED.h>
 
-#define NUM_LEDS 16
+#define NUM_LEDS 17
 #define LED_PIN 5
 #define LED_TYPE    WS2812
 unsigned long int respira = 0;
-unsigned long int expira = 0;
+unsigned long int expira = 50;
 int r = 0;
-int e = 15;
+int e = 16;
 
 CRGB leds[NUM_LEDS];
 void setup () {
@@ -24,16 +24,16 @@ void loop() {
       }
     }
     if(r == NUM_LEDS){
-      if(millis() - respira >= 50){
-        leds[e] = CRGB::Red;
+      if(millis() - respira >= expira){
+        leds[e] = CRGB::Black;
         FastLED.show();
-        respira += 50;
+        respira += expira;
         e -= 1;
         }
       }
       if(r == NUM_LEDS and e == 0){
         r = 0;
-        e = 15;
+        e = 16;
       }
   }
 
