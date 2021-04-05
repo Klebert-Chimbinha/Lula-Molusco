@@ -7,7 +7,7 @@
 unsigned long int respira = 0;
 unsigned long int expira = 0;
 int r = 0;
-int e = 0;
+int e = 15;
 
 CRGB leds[NUM_LEDS];
 void setup () {
@@ -24,16 +24,16 @@ void loop() {
       }
     }
     if(r == NUM_LEDS){
-      if(millis() - respira >= 100){
+      if(millis() - respira >= 50){
         leds[e] = CRGB::Red;
         FastLED.show();
-        respira += 100;
-        e += 1;
+        respira += 50;
+        e -= 1;
         }
       }
-      if(r == NUM_LEDS and e == NUM_LEDS){
+      if(r == NUM_LEDS and e == 0){
         r = 0;
-        e = 0;
+        e = 15;
       }
   }
 
