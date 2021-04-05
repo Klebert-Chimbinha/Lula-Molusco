@@ -5,6 +5,7 @@
 #define LED_PIN 5
 #define LED_TYPE    WS2812
 unsigned long int respira = 0;
+unsigned long int inspira = 100;
 unsigned long int expira = 100;
 int t = (NUM_LEDS - 1)/2; //Traqueia
 int d = 9; //Bronquio direito
@@ -18,13 +19,14 @@ void setup () {
   FastLED.setBrightness(250);
   }
 void loop() { 
-  if(d < NUM_LEDS){
-    if(millis() - respira >= 100){
+//respiração basica;
+  if(d < NUM_LEDS){ 
+    if(millis() - respira >= inspira){
       leds[t] = CRGB::Blue;
       leds[d] = CRGB::Amethyst;
       leds[e] = CRGB::Amethyst;
       FastLED.show();
-      respira += 100;
+      respira += inspira;
       d += 1;
       e -= 1;
       }
