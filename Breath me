@@ -1,24 +1,28 @@
 //Deixa a fita de Led Respirar atraves da medição de Millis
 #include <FastLED.h>
-
-#define NUM_LEDS 17
+//FastLED basics
+#define NUM_LEDS 21
 #define LED_PIN 5
 #define LED_TYPE    WS2812
+
+//Respiração 
 unsigned long int respira = 0;
 unsigned long int inspira = 100;
-unsigned long int expira = 100;
+unsigned long int expira = 500;
 int t = (NUM_LEDS - 1)/2; //Traqueia
-int d = 9; //Bronquio direito
-int e = 7; //Bronquio esquerdo
-int ex = 16; // expiração
-int ex2 = 0; 
+int d = t + 1; //Bronquio direito
+int e = t - 1; //Bronquio esquerdo
+int ex = (NUM_LEDS - 1); // expiração 
+int ex2 = 0; // expiração
 
+//CRGB leds
 CRGB leds[NUM_LEDS];
 void setup () {
   FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(250);
   }
 void loop() { 
+
 //respiração basica;
   if(d < NUM_LEDS){ 
     if(millis() - respira >= inspira){
@@ -33,7 +37,7 @@ void loop() {
     }
     if(d == NUM_LEDS){
       if(millis() - respira >= expira){
-        leds[t] = CRGB::Red;
+        leds[t] = CRGB::Black;
         leds[ex] = CRGB::Black;
         leds[ex2] = CRGB::Black;
         FastLED.show();
@@ -41,13 +45,13 @@ void loop() {
         ex -= 1;
         ex2 +=1;
         }
+        leds[t] = CRGB::Red;
+        FastLED.show();
       }
-      if(d == NUM_LEDS and ex == 9){
-        d = 9;
-        e = 7;
-        ex = 16;
+      if(d == NUM_LEDS and ex == t + 1){
+        d = t + 1;
+        e = t - 1;
+        ex = (NUM_LEDS - 1);
         ex2 = 0;
       }
   }
-
-
