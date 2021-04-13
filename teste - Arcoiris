@@ -1,7 +1,7 @@
 //Deixa a fita de Led Respirar atraves da medição de Millis
 #include <FastLED.h>
 
-#define NUM_LEDS 17
+#define NUM_LEDS 141
 #define LED_PIN 5
 #define LED_TYPE    WS2812
 
@@ -20,7 +20,7 @@ void setup () {
 
 void loop() {
   if(estado == 0){
-  Respirando(100, 100);
+  Respirando(50, 50);
   }
   if(estado == 1){
   gatilhado(10,10);
@@ -45,7 +45,7 @@ void Respirando( int inspira, int expira) {
       }
       if(r == NUM_LEDS and e == 0){
         r = 0;
-        e = 16;
+        e = NUM_LEDS - 1;
       }
   } 
 //Engatilhado
@@ -88,5 +88,7 @@ void Arcoiris(int r ){
       leds[r] = CRGB::Orange;
       }else if(r + 1 <= 7*intervalo){
       leds[r] = CRGB::Red;
+     }else if( r + 1 >= 7*intervalo){
+       leds[r] = CRGB::Violet;
      }
 }
