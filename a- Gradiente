@@ -46,7 +46,7 @@ void Respirando( int inspira, int expira) {
     }
     if(r == NUM_LEDS){
       if(millis() - respira >= expira){
-        leds[e] = CRGB::Black;
+        GradienteReverso(e, 255, 0, 0);
         FastLED.show();
         respira += expira;
         e -= 1;
@@ -111,12 +111,25 @@ void trigged(int inspira, int expira){
   } 
 
 void Gradiente(int h, int corR, int corG, int corB){
-   leds[h] = CRGB::Red;
-   if(h >= 1){
+leds[h] = CRGB(corR, corG, corB);   if(h >= 1){
     leds[h-1] = CRGB(corR*0.6, corG*0.6, corB*0.6);
    }
    if(h >=2){
      leds[h-2] = CRGB(corR*0.3, corG*0.3, corB*0.3);
    }
-    //leds[r-2] = CRGB(247, 132, 124);    
+   if(h >=3){
+   leds[h-3] = CRGB(corR*0.1, corG*0.1, corB*0.1);    
+   }
+}
+void GradienteReverso(int h, int corR, int corG, int corB){
+   leds[h] = CRGB(corR, corG, corB);
+   if(h <= NUM_LEDS - 1){
+    leds[h+1] = CRGB(corR*0.6, corG*0.6, corB*0.6);
+   }
+   if(h <= NUM_LEDS - 2){
+     leds[h+2] = CRGB(corR*0.3, corG*0.3, corB*0.3);
+   }
+   if(h <= NUM_LEDS - 3){
+   leds[h+3] = CRGB(corR*0.1, corG*0.1, corB*0.1);    
+   }
 }
