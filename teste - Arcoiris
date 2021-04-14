@@ -19,6 +19,10 @@ void setup () {
   }
 
 void loop() {
+ //int proximo = map(analogRead(A0),1023, 0, 1000, 10);
+//if(proximo <= 1000){
+  //estado = 1;
+//}
   if(estado == 0){
   Respirando(50, 50);
   }
@@ -26,6 +30,7 @@ void loop() {
   gatilhado(100,100);
 }
 if(estado == 2){
+  //trigged(proximo, proximo*0.7);
   trigged(50,50);
 }
 }
