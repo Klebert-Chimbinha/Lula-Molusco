@@ -1,0 +1,143 @@
+//Deixa a fita de Led Respirar atraves da medição de Millis
+#include <FastLED.h>
+
+#define NUM_LEDS 17
+#define LED_PIN 5
+#define LED_TYPE    WS2812
+
+unsigned long int respira = 0;
+int r = 0;
+int e = NUM_LEDS - 1;
+int estado = 0;
+
+CRGB leds[NUM_LEDS];
+
+void setup () {
+  FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(250);
+
+  }
+
+void loop() {
+ //int proximo = map(analogRead(A0),1023, 0, 1000, 10);
+//if(proximo <= 1000){
+  //estado = 1;
+//}
+  if(estado == 0){
+  Respirando(50, 50);
+  }
+  if(estado == 1){
+  gatilhado(100,100);
+}
+if(estado == 2){
+  //trigged(proximo, proximo*0.7);
+  trigged(50,50);
+}
+}
+void Respirando( int inspira, int expira) {
+  if(r < NUM_LEDS){
+    if(millis() - respira >= inspira){
+      //Gradiente(r, 255, 0, 0);
+      //leds[r] = CRGB::Blue;
+      fill_solid( leds, NUM_LEDS, CRGB::Red);
+      
+      FastLED.show();
+      respira += inspira;
+      r += 1;
+      }
+    }
+    if(r == NUM_LEDS){
+      if(millis() - respira >= expira){
+        FastLED.clear ();
+        FastLED.show();
+        respira += expira;
+        e -= 1;
+        }
+      }
+      if(r == NUM_LEDS and e == 0){
+        r = 0;
+        e = NUM_LEDS - 1;
+      }
+  } 
+//Engatilhado
+void gatilhado( int inspira, int expira) {
+  if(r < NUM_LEDS){
+    if(millis() - respira >= inspira){
+      Gradiente(r, 255, 0, 0);
+      
+      FastLED.show();
+      respira += inspira;
+      r += 1;
+      }
+    }
+    if(r == NUM_LEDS){
+      if(millis() - respira >= expira){
+        leds[e] = CRGB::CRGB::Red;
+        FastLED.show();
+        respira += expira;
+        e -= 1;
+      }
+      }
+      if(r == NUM_LEDS and e == 0){
+          for(int i = NUM_LEDS - 1; i >= 0; i--){
+            leds[i] = CRGB::CRGB::Black;
+            FastLED.show();
+          }
+        e = NUM_LEDS - 1;
+        r = 0;
+        estado += 1;
+      }
+  }
+
+void trigged(int inspira, int expira){
+   if(r < NUM_LEDS){
+    if(millis() - respira >= inspira){
+      leds[r] = CRGB::Red;
+      FastLED.show();
+      respira += inspira;
+      r += 1;
+      }
+    }
+    if(r == NUM_LEDS){
+      if(millis() - respira >= expira){
+        leds[e] = CRGB::Black;
+        FastLED.show();
+        respira += expira;
+        e -= 1;
+        }
+      }
+      if(r == NUM_LEDS and e == 0){
+        r = 0;
+        e = NUM_LEDS - 1;
+      }
+  } 
+
+void Gradiente(int h, int corR, int corG, int corB){
+leds[h] = CRGB(corR, corG, corB);   if(h >= 1){
+    leds[h-1] = CRGB(corR*0.9, corR*0.9, corB*0.9);
+   }
+   if(h >=2){
+     leds[h-2] = CRGB(corB*0.6, corR*0.6, corG*0.6);
+   }
+   if(h >=3){
+   leds[h-3] = CRGB(corG*0.3, corB*0.3, corR*0.3);    
+   }
+   if(h >=4){
+   leds[h-4] = CRGB::Black;    
+   }
+}
+void GradienteReverso(int h, int corR, int corG, int corB){
+   leds[h] = CRGB(corR, corG, corB);
+   if(h <= NUM_LEDS - 1){
+    leds[h+1] = CRGB(corR*0.9, corR*0.9, corB*0.9);
+   }
+   if(h <= NUM_LEDS - 2){
+     leds[h+2] = CRGB(corB*0.6, corR*0.6, corG*0.6);
+   }
+   if(h <= NUM_LEDS - 3){
+   leds[h+3] = CRGB(corG*0.3, corB*0.3, corR*0.3);    
+   }
+   if(h <= NUM_LEDS - 4){
+   leds[h+4] = CRGB::Black;    
+   }
+}
