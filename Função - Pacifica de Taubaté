@@ -8,7 +8,7 @@
 unsigned long int respira = 0;
 int r = 0;
 int e = NUM_LEDS - 1;
-int estado = 0;
+int estado = 3;
 
 CRGB leds[NUM_LEDS];
 
@@ -34,7 +34,7 @@ if(estado == 2){
   trigged(50,50);
 }
 if(estado == 3){
-  PacificaTaubate(10, 20, 100);
+  PacificaTaubate(10, 20, 250, 10);
   FastLED.show();
 
 }
@@ -133,14 +133,14 @@ void Arcoiris(int r ){
     leds[r] = CRGB::Red;
   }
 }
-void PacificaTaubate(int v1, int v2, int b) { 
+void PacificaTaubate(int v1, int v2, int b, int sat) { 
 uint8_t sinBeat = beatsin8(v1, 0, NUM_LEDS -1, 0, 0);
 uint8_t sinBeat2 = beatsin8(v2, 0, NUM_LEDS -1, 0, 124);
 FastLED.setBrightness(b);
 
 leds[sinBeat] = CRGB::Violet;
 leds[sinBeat2] = CRGB::Red;
-blur1d(leds, NUM_LEDS, 100);
+blur1d(leds, NUM_LEDS, sat);
 fadeToBlackBy(leds, NUM_LEDS, 0);
 
 }
