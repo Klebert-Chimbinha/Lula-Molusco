@@ -134,12 +134,20 @@ void Arcoiris(int r ){
   }
 }
 void PacificaTaubate(int v1, int v2, int b, int sat) { 
-uint8_t sinBeat = beatsin8(v1, 0, NUM_LEDS -1, 0, 0);
+uint8_t sinBeat = beatsin8(v1, 2, NUM_LEDS -1, 0, 0);
 uint8_t sinBeat2 = beatsin8(v2, 0, NUM_LEDS -1, 0, 124);
+uint8_t sinBeat3 = beatsin8(v1, 0, NUM_LEDS -1, 0, 124);
+uint8_t sinBeat4= beatsin8(v2, 0, NUM_LEDS -1, 0, 0);
+
+
 FastLED.setBrightness(b);
 
 leds[sinBeat] = CRGB::Violet;
 leds[sinBeat2] = CRGB::Red;
+leds[sinBeat3] = CRGB::Yellow;
+leds[sinBeat4] = CRGB::Cyan;
+
+
 blur1d(leds, NUM_LEDS, sat);
 fadeToBlackBy(leds, NUM_LEDS, 0);
 
