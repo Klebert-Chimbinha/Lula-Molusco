@@ -1,4 +1,3 @@
-
 #include <FastLED.h>
 
 #define LED_PIN     5
@@ -28,7 +27,7 @@ void setup() {
 void loop()
 {
   static uint8_t startIndex = 0;
-  startIndex = startIndex + 10; 
+  startIndex = startIndex + 1000; 
   
   SetupArcoirisPalette();
 
@@ -45,7 +44,7 @@ void FillLEDsFromPaletteColors( uint8_t colorIndex)
     //leds[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
     //i += 1;
     fill_solid( leds, NUM_LEDS, ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending));
-    colorIndex += 10;
+    colorIndex += 1000;
     respira += 1000;
 
     if(i == NUM_LEDS){
@@ -74,8 +73,8 @@ void SetupArcoirisPalette()
   CRGB black  = CRGB::Black;
 
   currentPalette = CRGBPalette16(
-                     violet,  indigo,  cyan,  green,
-                     yellow, orange, red,  violet,
-                     indigo,  cyan,  green,  yellow,
-                     orange, red, violet,  indigo );
+                     violet,  violet,  indigo,  indigo,
+                     cyan, cyan, green,  green,
+                     yellow,  yellow,  orange,  orange,
+                     red, red, violet,  violet );
 }
