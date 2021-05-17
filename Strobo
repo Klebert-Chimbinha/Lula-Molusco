@@ -1,0 +1,50 @@
+//Deixa a fita de Led Respirar atraves da medição de Millis
+#include <FastLED.h>
+
+#define NUM_LEDS 30
+#define LED_PIN 5
+#define LED_TYPE    WS2812
+
+unsigned long int respira = 0;
+int r = 0;
+int e = NUM_LEDS - 1;
+int estado = 2;
+
+CRGB leds[NUM_LEDS];
+
+CRGBPalette16 currentPalette;
+TBlendType    currentBlending;
+
+void setup () {
+  FastLED.addLeds<LED_TYPE, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(250);
+  
+  currentPalette = RainbowColors_p;
+  currentBlending = LINEARBLEND;
+
+  }
+
+void loop() {
+
+//Pessoa se aproxima e a respiração varia
+  if(estado == 2){
+  //trigged(proximo, proximo*0.7);
+    trigged(124,234,25,500,500);
+    }
+}
+
+void trigged(int R, int G, int B, int inspira, int expira){
+   if(millis() - respira >= inspira){
+      fill_solid( leds, NUM_LEDS, CRGB(R,G,B));
+      FastLED.show();
+      respira += inspira;
+      r += 1;
+      }
+    if(millis() - respira >= expira){
+        FastLED.clear();
+        //fadeToBlackBy(leds, NUM_LEDS, 170);
+        FastLED.show();
+        respira += expira;
+        e -= 1;
+      }
+}
