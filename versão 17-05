@@ -4,7 +4,6 @@
 #define NUM_LEDS 30
 #define LED_PIN 5
 #define LED_TYPE    WS2812
-#define FRAMES_PER_SECOND 10
 bool gReverseDirection = false;
 
 
@@ -13,6 +12,7 @@ int r = 0;
 int e = NUM_LEDS - 1;
 int estado = 4;
 int tempo = 0;
+int FRAMES_PER_SECOND = 10;
 
 CRGB leds[NUM_LEDS];
 
@@ -52,6 +52,7 @@ void loop() {
     
 //Ta pegando fogo bicho
   if(estado == 4){
+    FRAMES_PER_SECOND = 10;
     if(millis() - tempo <= (1000 / FRAMES_PER_SECOND)){
      Fogo();
      FastLED.show();
@@ -299,4 +300,3 @@ void Fogo()
       leds[pixelnumber] = color;
     }
 }
-
