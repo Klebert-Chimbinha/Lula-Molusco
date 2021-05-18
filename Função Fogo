@@ -32,13 +32,8 @@ void loop() {
 
 //Ta pegando fogo bicho
   if(estado == 4){
-    if(millis() - tempo <= (1000 / FRAMES_PER_SECOND)){
-     Fogo();
-     FastLED.show();
-  //FastLED.delay(1000 / FRAMES_PER_SECOND);
-      tempo += (1000/FRAMES_PER_SECOND);
-
-   }
+    Carvao(100);
+    
   }
 }
 
@@ -46,7 +41,13 @@ void loop() {
 #define COOLING  55
 #define SPARKING 120
 
-
+void Carvao(int queima){
+  if(millis() - respira <= queima){
+    Fogo();
+    FastLED.show();
+    respira += 100;
+    }
+  }
 void Fogo()
 {
   static byte heat[NUM_LEDS];
@@ -71,3 +72,4 @@ void Fogo()
       leds[pixelnumber] = color;
     }
 }
+
