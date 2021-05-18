@@ -51,15 +51,9 @@ void loop() {
     }
     
 //Ta pegando fogo bicho
+  //Ta pegando fogo bicho
   if(estado == 4){
-    FRAMES_PER_SECOND = 10;
-    if(millis() - tempo <= (1000 / FRAMES_PER_SECOND)){
-     Fogo();
-     FastLED.show();
-     //FastLED.delay(1000 / FRAMES_PER_SECOND);
-     tempo += (1000/FRAMES_PER_SECOND);
-
-   }
+    Carvao(100);
   }
 }
 void Respirando( int inspira, int expira) {
@@ -275,7 +269,13 @@ void pacifica_deepen_colors(int Sat1, int Sat2){
 #define COOLING  55
 #define SPARKING 120
 
-
+void Carvao(int queima){
+  if(millis() - respira <= queima){
+    Fogo();
+    FastLED.show();
+    respira += 100;
+    }
+  }
 void Fogo()
 {
   static byte heat[NUM_LEDS];
