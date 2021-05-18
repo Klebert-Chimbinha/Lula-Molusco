@@ -1,18 +1,15 @@
-//Deixa a fita de Led Respirar atraves da medição de Millis
-#include <FastLED.h>
+#include <FastLED.h> //Adiciona a Biblioteca
 
-#define NUM_LEDS 30
-#define LED_PIN 5
+#define NUM_LEDS 30 //Numero da fita de Leds da Demo
+#define LED_PIN 5 //Mudar para 26 no fisico
 #define LED_TYPE    WS2812
-#define FRAMES_PER_SECOND 10
+#define FRAMES_PER_SECOND 10 
+
 bool gReverseDirection = false;
-
-
-unsigned long int respira = 0;
-int r = 0;
-int e = NUM_LEDS - 1;
-int estado = 5;
-int tempo = 0;
+unsigned long int respira = 0; //Contador de Millis Universal
+int r = 0; //Acendedor de Lampadas
+int e = NUM_LEDS - 1; //Apagador de Lampadas
+int estado = 5; //Define modo
 
 CRGB leds[NUM_LEDS];
 
@@ -27,41 +24,53 @@ void setup () {
   currentBlending = LINEARBLEND;
 
   }
-
+  
+//Coisas da Demo Reel.
 typedef void (*SimplePatternList[])();
 SimplePatternList gPatterns = { rainbow, rainbowWithGlitter, confetti, sinelon, juggle, bpm };
 
 uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0; // rotating "base color" used by many of the patterns
 
+//Loop
 void loop() {
+  //Para quandou ouver entrada, e mudar o estado
   //int proximo = map(analogRead(A0),1023, 0, 1000, 10);
   //if(proximo <= 1000){
     //estado = 1;
   //}
-//Respiração Básica
+  
+  //Respiração Básica
   if(estado == 0){
-    Respirando(50, 50);
+    Respirando(50, 50); //Respiração em Canudo e nas cores dos Xacras como proposto pelo Paulo Teles
   }
-//Pessoa entra no perimetro
+  
+  //Pessoa entra no perimetro
   if(estado == 1){
-    Piscalerta(100,100);
+    Piscalerta(100,100); //Quando a pessoa se aproxima as leds piscam em conjunto
   }
-//Strobo
- if(estado == 2){
-    trigged(124,234,25,500,500);
-    }
-//Pacifica
+  
+  //Atualização
+  //Strobo
+  if(estado == 2){
+    trigged(124,234,25,500,500); //Quando mais a pessoa se aproxima, mais rapido pisca como proposto por Juliano
+  }
+  
+  //Pacifica - Sugerida por Juliano
   if(estado == 3){
     pacifica_loop(255, 145, 200);
     FastLED.show();
-    }
-    
-//Ta pegando fogo bicho
-  //Ta pegando fogo bicho
+  }
+  
+  //Atualização
+  //Observação: usei uma função para chamar outra função para poder mudar o tempo com facilidade e evitar bugs.
+  // Fire 2012 - Sugestão do Juliano.
   if(estado == 4){
     Carvao(100);
   }
+  
+  //Atualização
+  //Demo reel como sugerido pelo Juliano
   if( estado == 5){
     demo(10);
   }
