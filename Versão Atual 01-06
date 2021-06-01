@@ -292,7 +292,9 @@ void Fogo()
       heat[y] = qadd8( heat[y], random8(160,255) );
     }
     for( int j = 0; j < NUM_LEDS; j++) {
-      CRGB color = HeatColor( heat[j]);
+      //CRGB color = HeatColor( heat[j]);
+      CRGB color = ColorFromPalette( Nossa_Paleta, heat[j], 255, currentBlending);
+
       int pixelnumber;
       if( gReverseDirection ) {
         pixelnumber = (NUM_LEDS-1) - j;
@@ -302,7 +304,6 @@ void Fogo()
       leds[pixelnumber] = color;
     }
 }
-
 void demo(int reel){
   if(millis() - respira <= reel){
   gPatterns[gCurrentPatternNumber]();
