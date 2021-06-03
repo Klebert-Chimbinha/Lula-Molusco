@@ -10,6 +10,12 @@ unsigned long int respira = 0; //Contador de Millis Universal
 int r = 0; //Acendedor de Lampadas
 int e = NUM_LEDS - 1; //Apagador de Lampadas
 int estado = 5; //Define modo
+// Estado == 0 - Idel
+// Estado == 1 - Relaxamento
+// Estado == 2 - Descarga
+// Estado == 3 - Saturação
+// Estado == 4 - Tensão
+
 
 CRGB leds[NUM_LEDS];
 
