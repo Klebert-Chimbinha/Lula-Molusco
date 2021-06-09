@@ -40,46 +40,39 @@ uint8_t gHue = 0; // rotating "base color" used by many of the patterns
 
 //Loop
 void loop() {
-  //Para quandou ouver entrada, e mudar o estado
-  //int proximo = map(analogRead(A0),1023, 0, 1000, 10);
-  //if(proximo <= 1000){
-    //estado = 1;
-  //}
-  
-  //Respiração Básica
-  if(estado == 0){
-    Respirando(50, 50); //Respiração em Canudo e nas cores dos Xacras como proposto pelo Paulo Teles
-  }
-  
-  //Pessoa entra no perimetro
-  if(estado == 1){
-    Piscalerta(100,100); //Quando a pessoa se aproxima as leds piscam em conjunto
-  }
-  
-  //Atualização
-  //Strobo
-  if(estado == 2){
-    trigged(124,234,25,500,500); //Quando mais a pessoa se aproxima, mais rapido pisca como proposto por Juliano
-  }
-  
+  //Idel 
   //Pacifica - Sugerida por Juliano
-  if(estado == 3){
+  if(estado == 0){
     pacifica_loop(255, 145, 200);
     FastLED.show();
   }
   
-  //Atualização
+  //Relaxamento
+  //Respiração Básica
+  if(estado == 1){
+    Respirando(50, 50); //Respiração em Canudo e nas cores dos Xacras como proposto pelo Paulo Teles
+  }
+  
+  //Descarga
+  //Demo reel como sugerido pelo Juliano
+  if( estado == 5){
+    demo(10);
+  }
+  
+  //Carga
+  //Strobo
+  if(estado == 3){
+    trigged(124,234,25,500,500); //Quando mais a pessoa se aproxima, mais rapido pisca como proposto por Juliano
+  }
+  
+  //Tensão
   //Observação: usei uma função para chamar outra função para poder mudar o tempo com facilidade e evitar bugs.
   // Fire 2012 - Sugestão do Juliano.
   if(estado == 4){
     Carvao(100);
   }
   
-  //Atualização
-  //Demo reel como sugerido pelo Juliano
-  if( estado == 5){
-    demo(10);
-  }
+  
 }
 
 //Violeta = 0x8A2BE2
