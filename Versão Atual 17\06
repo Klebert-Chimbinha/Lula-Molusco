@@ -1,7 +1,7 @@
 #include <FastLED.h> //Adiciona a Biblioteca
 
+#define LED_PIN 26 //Mudar para 26 no fisico
 #define NUM_LEDS 30 //Numero da fita de Leds da Demo
-#define LED_PIN 5 //Mudar para 26 no fisico
 #define LED_TYPE    WS2812
 #define FRAMES_PER_SECOND 10 
 
@@ -9,7 +9,7 @@ bool gReverseDirection = false;
 unsigned long int respira = 0; //Contador de Millis Universal
 int r = 0; //Acendedor de Lampadas
 int e = NUM_LEDS - 1; //Apagador de Lampadas
-int estado = 5; //Define modo
+int estado = 2; //Define modo
 // Estado == 0 - Idel
 // Estado == 1 - Relaxamento
 // Estado == 2 - Descarga
@@ -55,8 +55,8 @@ void loop() {
   
   //Descarga
   //Demo reel como sugerido pelo Juliano
-  if( estado == 5){
-    demo(10);
+  if( estado == 2){
+    demo(100);
   }
   
   //Carga
@@ -307,7 +307,7 @@ void demo(int reel){
   if(millis() - respira <= reel){
   gPatterns[gCurrentPatternNumber]();
   FastLED.show();
-    respira +=10;
+    respira +=100;
 
   }
   // do some periodic updates
