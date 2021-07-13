@@ -36,8 +36,8 @@ uint8_t sinBeat4= beatsin8(v2, 0, NUM_LEDS -1, 0, 0);
 
 FastLED.setBrightness(b);
 
-leds[sinBeat] = CRGB::Violet;
-leds[sinBeat2] = CRGB::Red;
+leds[sinBeat] = CRGB::Blue;
+leds[sinBeat2] = CRGB::SeaGreen;
 leds[sinBeat3] = CRGB::Yellow;
 leds[sinBeat4] = CRGB::Cyan;
 
