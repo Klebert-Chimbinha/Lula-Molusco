@@ -38,7 +38,7 @@ FastLED.setBrightness(b);
 
 leds[sinBeat] = CRGB::Blue;
 leds[sinBeat2] = CRGB::SeaGreen;
-leds[sinBeat3] = CRGB::Yellow;
+leds[sinBeat3] = CRGB::LightSeaGreen;
 leds[sinBeat4] = CRGB::Cyan;
 
 
